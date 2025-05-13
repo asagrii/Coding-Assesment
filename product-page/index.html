@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Page - TWS Earbuds</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      gap: 30px;
+    }
+
+    .image-container {
+      flex: 1 1 400px;
+      position: relative;
+    }
+
+    .zoom-lens {
+      position: absolute;
+      border: 2px solid #000;
+      width: 100px;
+      height: 100px;
+      opacity: 0.4;
+      background-color: #fff;
+      display: none;
+      pointer-events: none;
+    }
+
+    .zoom-result {
+      position: absolute;
+      top: 0;
+      left: 105%;
+      width: 300px;
+      height: 300px;
+      overflow: hidden;
+      border: 1px solid #ddd;
+      display: none;
+    }
+
+    .zoom-result img {
+      position: absolute;
+    }
+
+    .product-image {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      cursor: zoom-in;
+    }
+
+    .zoom-text {
+      margin-top: 8px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    .thumbnail-carousel {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .thumbnail {
+      width: 60px;
+      height: auto;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .thumbnail:hover {
+      transform: scale(1.1);
+    }
+
+    .carousel-controls {
+      font-size: 20px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .product-info {
+      flex: 1 1 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .product-info h1 {
+      font-size: 1.8rem;
+      color: #111;
+    }
+
+    .rating {
+      color: #f39c12;
+      font-weight: bold;
+    }
+
+    .price {
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .discount {
+      color: #e74c3c;
+      font-weight: bold;
+    }
+
+    .final-price {
+      color: #111;
+      font-weight: bold;
+    }
+
+    .original-price {
+      color: #999;
+      text-decoration: line-through;
+    }
+
+    .delivery, .stock {
+      font-size: 1rem;
+      color: #2ecc71;
+    }
+
+    .quantity-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 10px 0;
+    }
+
+    .quantity-select {
+      padding: 6px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .button-container {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .button-container button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .add-to-cart {
+      background-color: #ff9900;
+      color: white;
+    }
+
+    .add-to-cart:hover {
+      background-color: #e68a00;
+    }
+
+    .buy-now {
+      background-color: #f60;
+      color: white;
+    }
+
+    .buy-now:hover {
+      background-color: #e65c00;
+    }
+
+    .offers {
+      margin-top: 20px;
+    }
+
+    .offers h3 {
+      margin-bottom: 5px;
+    }
+
+    .offers ul {
+      padding-left: 20px;
+    }
+
+    .offers li {
+      margin-bottom: 5px;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Image Area -->
+    <div class="image-container">
+      <img src="assets/images/Ear1.jpg" alt="TWS Earbuds" class="product-image" id="mainImage">
+      <div class="zoom-lens" id="zoomLens"></div>
+      <div class="zoom-result" id="zoomResult">
+        <img id="zoomedImg" src="assets/images/Ear1.jpg">
+      </div>
+      <div class="zoom-text">Hover over image to zoom in</div>
+      <div class="thumbnail-carousel">
+        <span class="carousel-controls" onclick="prevImage()">&#10094;</span>
+        <img src="assets/images/Ear1.jpg" alt="Earbuds Image 1" class="thumbnail" onclick="changeImage(this.src)">
+        <img src="assets/images/Ear2.jpg" alt="Earbuds Image 2" class="thumbnail" onclick="changeImage(this.src)">
+        <img src="assets/images/Ear3.jpg" alt="Earbuds Image 3" class="thumbnail" onclick="changeImage(this.src)">
+        <img src="assets/images/Ear4.jpg" alt="Earbuds Image 4" class="thumbnail" onclick="changeImage(this.src)">
+        <span class="carousel-controls" onclick="nextImage()">&#10095;</span>
+      </div>
+    </div>
+
+    <!-- Product Info Area -->
+    <div class="product-info">
+      <h1>TWS in-Ear Earbuds (AB-T01A) with Fast Charging up to 50 Hours of Playtime | Dual 10mm Driver | IPX4 Water-Resistance | Bluetooth 5.3 | Charging Case with Mic | Touch Control (Mint)</h1>
+      <p class="rating">3.6 ★★★★☆ (314 ratings)</p>
+      <p class="price">
+        <span class="discount">-80%</span>
+        ₹<span class="final-price">499</span>
+        <span class="original-price">₹2499</span>
+      </p>
+      <p class="delivery">FREE delivery Thursday, 15 May. Details</p>
+      <p class="stock">In stock</p>
+
+      <div class="quantity-container">
+        <label for="quantity">Quantity:</label>
+        <select id="quantity" class="quantity-select">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+      </div>
+
+      <div class="button-container">
+        <button class="add-to-cart">Add to Cart</button>
+        <button class="buy-now">Buy Now</button>
+      </div>
+
+      <div class="offers">
+        <h3>Offers</h3>
+        <ul>
+          <li>Cashback Upto ₹14.00 as Amazon Pay Balance</li>
+          <li>Bank Offer: Upto ₹2000 discount on select cards</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const mainImage = document.getElementById('mainImage');
+    const zoomLens = document.getElementById('zoomLens');
+    const zoomResult = document.getElementById('zoomResult');
+    const zoomedImg = document.getElementById('zoomedImg');
+
+    mainImage.addEventListener('mousemove', function(e) {
+      zoomLens.style.display = 'block';
+      zoomResult.style.display = 'block';
+      const bounds = mainImage.getBoundingClientRect();
+      const x = e.pageX - bounds.left - window.scrollX - zoomLens.offsetWidth / 2;
+      const y = e.pageY - bounds.top - window.scrollY - zoomLens.offsetHeight / 2;
+
+      const maxX = mainImage.width - zoomLens.offsetWidth;
+      const maxY = mainImage.height - zoomLens.offsetHeight;
+      const lensX = Math.max(0, Math.min(x, maxX));
+      const lensY = Math.max(0, Math.min(y, maxY));
+
+      zoomLens.style.left = lensX + 'px';
+      zoomLens.style.top = lensY + 'px';
+
+      zoomedImg.style.width = mainImage.width * 2 + 'px';
+      zoomedImg.style.height = mainImage.height * 2 + 'px';
+      zoomedImg.style.left = -lensX * 2 + 'px';
+      zoomedImg.style.top = -lensY * 2 + 'px';
+    });
+
+    mainImage.addEventListener('mouseleave', function() {
+      zoomLens.style.display = 'none';
+      zoomResult.style.display = 'none';
+    });
+
+    function changeImage(src) {
+      mainImage.src = src;
+      zoomedImg.src = src;
+    }
+
+    mainImage.addEventListener('click', function() {
+      const full = window.open(mainImage.src, '_blank');
+      full.focus();
+    });
+
+    let currentIndex = 0;
+    const thumbnails = Array.from(document.querySelectorAll('.thumbnail'));
+
+    function updateCarousel() {
+      thumbnails.forEach((thumb, index) => {
+        thumb.style.display = index >= currentIndex && index < currentIndex + 3 ? 'inline' : 'none';
+      });
+    }
+
+    function nextImage() {
+      if (currentIndex < thumbnails.length - 3) {
+        currentIndex++;
+        updateCarousel();
+      }
+    }
+
+    function prevImage() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateCarousel();
+      }
+    }
+
+    updateCarousel();
+
+    document.querySelector('.add-to-cart').onclick = function () {
+      const quantity = document.getElementById('quantity').value;
+      alert('Added ' + quantity + ' item(s) to your cart.');
+    };
+
+    document.querySelector('.buy-now').onclick = function () {
+      alert('Proceeding to checkout...');
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+/* Reset default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.product-image, .product-details {
+  flex: 1 1 500px;
+}
+
+.product-image img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.product-details h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.price {
+  color: #e60023;
+  font-size: 1.5rem;
+  margin: 10px 0;
+}
+
+.rating {
+  color: #ff9900;
+  margin: 10px 0;
+}
+
+.description {
+  margin: 15px 0;
+  color: #555;
+}
+
+.color-options, .quantity-selector {
+  margin: 15px 0;
+}
+
+.color-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.color-dot.active {
+  border: 2px solid #000;
+}
+
+button {
+  padding: 12px 24px;
+  border: none;
+  background-color: #000;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 6px;
+  margin-top: 20px;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #333;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+}
